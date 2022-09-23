@@ -261,16 +261,16 @@ function describe_type($input)
  */
 function default_http_handler()
 {
-    $version = (string) ClientInterface::VERSION;
-    if ($version[0] === '5') {
-        return new \Jdcloud\Handler\GuzzleV5\GuzzleHandler();
-    }
-
-    if ($version[0] === '6') {
+//    $version = (string) ClientInterface::VERSION;
+//    if ($version[0] === '5') {
+//        return new \Jdcloud\Handler\GuzzleV5\GuzzleHandler();
+//    }
+//
+//    if ($version[0] === '6') {
         return new \Jdcloud\Handler\GuzzleV6\GuzzleHandler();
-    }
+//    }
 
-    throw new \RuntimeException('Unknown Guzzle version: ' . $version);
+//    throw new \RuntimeException('Unknown Guzzle version: ' . $version);
 }
 
 /**

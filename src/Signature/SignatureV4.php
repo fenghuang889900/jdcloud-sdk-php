@@ -70,8 +70,8 @@ class SignatureV4 implements SignatureInterface
             $this->service,
             $credentials->getSecretKey()
             );
-        
-        
+
+
 //         var_dump($signingKey);
         $signature = hash_hmac('sha256', $toSign, $signingKey);
 //         var_dump($signature);
@@ -95,7 +95,7 @@ class SignatureV4 implements SignatureInterface
         $startTimestamp = isset($options['start_time'])
                             ? $this->convertToTimestamp($options['start_time'], null)
                             : time();
-                            
+
         $expiresTimestamp = $this->convertToTimestamp($expires, $startTimestamp);
 
         $parsed = $this->createPresignedRequest($request, $credentials);
@@ -170,7 +170,7 @@ class SignatureV4 implements SignatureInterface
         }
 
         try {
-            return Psr7\hash($request->getBody(), 'sha256');
+            return hash('sha256',$request->getBody());
         } catch (\Exception $e) {
             throw new CouldNotCreateChecksumException('sha256', $e);
         }
@@ -355,7 +355,7 @@ class SignatureV4 implements SignatureInterface
         return [
             'method'  => $request->getMethod(),
             'path'    => $uri->getPath(),
-            'query'   => Psr7\parse_query($uri->getQuery()),
+            'query'   => Psr7\Query::parse($uri->getQuery()),
             'uri'     => $uri,
             'headers' => $request->getHeaders(),
             'body'    => $request->getBody(),
